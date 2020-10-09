@@ -10,11 +10,17 @@ class BlogsController < ApplicationController
   # GET /blogs/1
   # GET /blogs/1.json
   def show
+    @comments = @blog.comments
+    @comment = @blog.comments.build
   end
 
   # GET /blogs/new
   def new
-    @blog = Blog.new
+    if signed_in?
+      @blog = Blog.new
+    else
+     redirect_to user_session_path
+    end
   end
 
   # GET /blogs/1/edit
